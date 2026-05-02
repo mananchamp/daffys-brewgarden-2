@@ -62,6 +62,14 @@ export default function CursorEffect() {
     };
 
     document.addEventListener('mousemove', onMouseMove);
+    
+    // Check for touch capability
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isTouch) {
+      if (dotRef.current) dotRef.current.style.display = 'none';
+      if (ringRef.current) ringRef.current.style.display = 'none';
+    }
+
     document.querySelectorAll('a, button, [role="button"]').forEach((el) => {
       el.addEventListener('mouseenter', onEnterLink);
       el.addEventListener('mouseleave', onLeaveLink);

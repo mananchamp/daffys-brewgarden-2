@@ -1,7 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+  basePath: '/daffys-brewgarden-2',
+  assetPrefix: '/daffys-brewgarden-2',
   images: {
-    remotePatterns: [],
+    unoptimized: true,
   },
   experimental: {
     optimizeCss: false,
@@ -9,3 +12,4 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+

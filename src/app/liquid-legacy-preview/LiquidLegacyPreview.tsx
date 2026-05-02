@@ -140,9 +140,10 @@ export default function LiquidLegacyPreview() {
       };
 
       // Base Text (dim)
-      const fontSize = width < 768 ? 120 : 250;
-      const titleFontSize = width < 768 ? 20 : 40;
-      const titleY = height / 2 - fontSize/2 - 40;
+      const isMobile = width < 768;
+      const fontSize = isMobile ? (width < 400 ? 60 : 80) : 250;
+      const titleFontSize = isMobile ? 16 : 40;
+      const titleY = height / 2 - fontSize/2 - (isMobile ? 20 : 40);
       
       ctx.font = `900 ${fontSize}px "Playfair Display", serif`;
       ctx.textAlign = 'center';
@@ -298,8 +299,10 @@ export default function LiquidLegacyPreview() {
   useEffect(() => {
     if (!isLoaded) return;
     const ctx = gsap.context(() => {
+      const isMobile = window.innerWidth < 768;
+      
       // Set initial states for the first beer
-      gsap.set('.master-glass-viewport', { xPercent: -22 });
+      gsap.set('.master-glass-viewport', { xPercent: isMobile ? 0 : -22 });
 
       const sections = BEERS.length;
       const tl = gsap.timeline({ scrollTrigger: { trigger: containerRef.current, start: 'top top', end: `+=${(sections - 1) * 100}%`, pin: true, scrub: 1.2 } });
@@ -310,25 +313,25 @@ export default function LiquidLegacyPreview() {
         const start = i - 1;
         const isEven = i % 2 === 0;
         
-        // Panning crossfade: maintains flow but minimizes the "merged" messiness
+        // Panning crossfade
         tl.to(`.bg-layer-${i-1}`, { 
           opacity: 0, 
-          xPercent: isEven ? 10 : -10, 
+          xPercent: isMobile ? 0 : (isEven ? 10 : -10), 
           duration: 0.7, 
           ease: 'power1.inOut' 
         }, start);
         
         tl.fromTo(`.bg-layer-${i}`, 
-          { opacity: 0, xPercent: isEven ? -10 : 10 }, 
+          { opacity: 0, xPercent: isMobile ? 0 : (isEven ? -10 : 10) }, 
           { opacity: 1, xPercent: 0, duration: 0.7, ease: 'power1.inOut' }, 
           start + 0.3
         );
         
-        // Master viewport moves continuously
-        tl.to('.master-glass-viewport', { xPercent: isEven ? -22 : 22, duration: 1, ease: 'power2.inOut' }, start);
+        // Master viewport moves continuously - disable horizontal movement on mobile to prevent overflow
+        tl.to('.master-glass-viewport', { xPercent: isMobile ? 0 : (isEven ? -22 : 22), duration: 1, ease: 'power2.inOut' }, start);
         
         // Fluid sequential transitions for glasses and text content
-        tl.to(`.glass-${i-1}`, { opacity: 0, scale: 0.9, y: -20, duration: 0.5, ease: 'power2.in' }, start);
+        tl.to(`.glass-${i-1}`, { opacity: 0, scale: 0.8, y: -20, duration: 0.5, ease: 'power2.in' }, start);
         tl.fromTo(`.glass-${i}`, { opacity: 0, scale: 1.1, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'power2.out' }, start + 0.5);
         
         tl.to(`.content-${i-1}`, { opacity: 0, y: -40, duration: 0.5, ease: 'power2.in' }, start);
@@ -449,10 +452,10 @@ export default function LiquidLegacyPreview() {
           </div>
 
           <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-            <div className="master-glass-viewport relative w-[45vw] h-[80vh] flex items-center justify-center will-change-transform">
+            <div className="master-glass-viewport relative w-[65vw] md:w-[45vw] h-[60vh] md:h-[80vh] flex items-center justify-center will-change-transform">
               {BEERS.map((beer, i) => (
                 <div key={`glass-${beer.id}`} className={`glass-${i} absolute inset-0 flex items-center justify-center`} style={{ opacity: i === 0 ? 1 : 0 }}>
-                  <div className="relative w-full h-full transform scale-110">
+                  <div className="relative w-full h-full transform scale-110 md:scale-110">
                     <Image src={beer.glass} alt={beer.name} fill className="object-contain" />
                     {/* Contact Shadow for Grounding (esp for Lager and Whisky) */}
                     {['lager', 'whisky-ale'].includes(beer.id) && <div className="absolute bottom-24 left-1/2 -translate-x-1/2 w-48 h-8 bg-black/40 blur-xl rounded-full" />}
@@ -465,18 +468,17 @@ export default function LiquidLegacyPreview() {
           <div className="absolute inset-0 z-30 pointer-events-none">
             {BEERS.map((beer, i) => {
               const isEven = i % 2 === 0;
-              const isPremium = ['premium-lager', 'premium-whisky', 'premium-specialty', 'premium-mead', 'premium-hefeweizen'].includes(beer.composition!);
               return (
-                <div key={`content-${beer.id}`} className={`content-${i} absolute inset-0 flex items-center ${isEven ? 'justify-end pr-[12%]' : 'justify-start pl-[12%]'} opacity-0`} style={{ opacity: i === 0 ? 1 : 0 }}>
-                  <div className="max-w-xl text-center md:text-left">
-                    <span className="block text-xs font-bold tracking-[0.6em] uppercase mb-6 text-[#d4af37]">{beer.notes}</span>
-                    <h2 className="text-6xl md:text-7xl font-black mb-10 leading-none tracking-tighter uppercase text-white" style={{ fontFamily: 'Playfair Display, serif', textShadow: '0 20px 40px rgba(0,0,0,0.8)' }}>
+                <div key={`content-${beer.id}`} className={`content-${i} absolute inset-0 flex flex-col md:flex-row items-center justify-center md:justify-start ${isEven ? 'md:justify-end md:pr-[12%]' : 'md:justify-start md:pl-[12%]'} px-6 md:px-0 opacity-0`} style={{ opacity: i === 0 ? 1 : 0 }}>
+                  <div className="max-w-xl text-center md:text-left pt-[40vh] md:pt-0">
+                    <span className="block text-[10px] md:text-xs font-bold tracking-[0.6em] uppercase mb-4 md:mb-6 text-[#d4af37]">{beer.notes}</span>
+                    <h2 className="text-4xl md:text-7xl font-black mb-6 md:mb-10 leading-none tracking-tighter uppercase text-white" style={{ fontFamily: 'Playfair Display, serif', textShadow: '0 20px 40px rgba(0,0,0,0.8)' }}>
                       {beer.name}
                     </h2>
-                    <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+                    <div className="flex flex-wrap gap-2 md:gap-4 justify-center md:justify-start">
                       {beer.ingredients.map((ing, idx) => (
-                        <div key={idx} className="px-8 py-2.5 rounded-full border border-[#d4af37]/20 backdrop-blur-2xl bg-[#1a0f0a]/60 shadow-[0_10px_40px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.05)] transition-all duration-500 hover:border-[#d4af37]/50 group cursor-default">
-                          <span className="text-[10px] md:text-xs font-bold tracking-[0.5em] uppercase text-[#d4af37]/90 group-hover:text-[#d4af37] transition-colors duration-300">{ing}</span>
+                        <div key={idx} className="px-4 md:px-8 py-2 md:py-2.5 rounded-full border border-[#d4af37]/20 backdrop-blur-2xl bg-[#1a0f0a]/60 shadow-[0_10px_40px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.05)] transition-all duration-500 hover:border-[#d4af37]/50 group cursor-default">
+                          <span className="text-[9px] md:text-xs font-bold tracking-[0.4em] md:tracking-[0.5em] uppercase text-[#d4af37]/90 group-hover:text-[#d4af37] transition-colors duration-300">{ing}</span>
                         </div>
                       ))}
                     </div>
@@ -487,7 +489,7 @@ export default function LiquidLegacyPreview() {
           </div>
 
           {/* Duplicate DAFFY'S BREWGARDEN header removed since we have the Navbar */}
-          <div className="fixed right-16 top-1/2 -translate-y-1/2 h-64 w-px bg-white/10 z-[100]">
+          <div className="fixed right-6 md:right-16 top-1/2 -translate-y-1/2 h-48 md:h-64 w-px bg-white/10 z-[100]">
             <div id="scroll-progress" className="w-full bg-[#d4af37] shadow-[0_0_15px_rgba(212,175,55,0.5)]" style={{ height: '0%' }} />
           </div>
         </div>
