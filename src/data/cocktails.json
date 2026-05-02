@@ -1,0 +1,62 @@
+[
+  {
+    "id": "midnight-bloom",
+    "name": "Midnight Bloom",
+    "tagline": "A garden that only grows in darkness",
+    "notes": ["Jasmine-infused gin", "elderflower cordial", "activated charcoal tonic", "violet essence"],
+    "story": "Inspired by night-blooming flowers that reveal their secrets only when the world sleeps. This cocktail awakens as it breathes.",
+    "badge": "Signature",
+    "color": "#1a4a30",
+    "image": "/cocktail_midnight_bloom.png"
+  },
+  {
+    "id": "golden-veil",
+    "name": "The Golden Veil",
+    "tagline": "Secrets wrapped in amber light",
+    "notes": ["24-year Scotch", "saffron honey", "smoke-rinsed crystal", "orange bitters"],
+    "story": "A drink for the discerning. The saffron is hand-harvested from La Mancha; the smoke, from a single applewood log.",
+    "badge": "Reserve",
+    "color": "#8a6f2e",
+    "image": "/cocktail_golden_veil.png"
+  },
+  {
+    "id": "jade-speakeasy",
+    "name": "Jade Speakeasy",
+    "tagline": "The colour of a hidden room",
+    "notes": ["Matcha-washed vodka", "yuzu sake", "green Chartreuse", "lemongrass mist"],
+    "story": "Conceived in the lab — a marriage of eastern ceremony and western rebellion. Enter through the refrigerator door.",
+    "badge": "Lab Series",
+    "color": "#0d2b1e",
+    "image": "/cocktail_jade_speakeasy.png"
+  },
+  {
+    "id": "crimson-reverie",
+    "name": "Crimson Reverie",
+    "tagline": "A dream poured into crystal",
+    "notes": ["Blood orange Campari", "hibiscus vermouth", "rose water", "edible gold dust"],
+    "story": "The colour of sunset over the Mediterranean, captured and bottled. Each glass is dusted with 23-carat gold before service.",
+    "badge": "Seasonal",
+    "color": "#6b1a1a",
+    "image": "/cocktail_crimson_reverie.png"
+  },
+  {
+    "id": "obsidian-drift",
+    "name": "Obsidian Drift",
+    "tagline": "Darkness that tastes of velvet",
+    "notes": ["Cold-brew coffee rum", "coconut cream", "black sesame orgeat", "tonka bean bitters"],
+    "story": "A slow journey through midnight. The black sesame is stone-ground in-house; the tonka, aged in oak for six months.",
+    "badge": "Bartender's Choice",
+    "color": "#0a0a0a",
+    "image": "/cocktail_obsidian_drift.png"
+  },
+  {
+    "id": "marbled-siren",
+    "name": "Marbled Siren",
+    "tagline": "Born on the shores of Carrara",
+    "notes": ["Tuscan grappa", "white peach", "almond milk foam", "Himalayan salt rim"],
+    "story": "An ode to our founder's roots. The marble bar on which this is served is the same Carrara marble that built cathedrals.",
+    "badge": "Heritage",
+    "color": "#2a2520",
+    "image": "/cocktail_marbled_siren.png"
+  }
+]
