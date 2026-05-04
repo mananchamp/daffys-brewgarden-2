@@ -393,7 +393,7 @@ export default function LiquidLegacyPreview() {
 
       {/* HERO — full viewport with pinning */}
       {isLoaded && (
-        <div ref={containerRef} className="relative h-[100dvh] w-full overflow-hidden">
+        <div ref={containerRef} className="relative h-screen w-full overflow-hidden">
           
           <div className="absolute inset-0 z-0 bg-[#050505] w-full h-full">
             {BEERS.map((beer, i) => (
