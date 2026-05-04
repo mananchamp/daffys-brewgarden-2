@@ -320,18 +320,22 @@ export default function LiquidLegacyPreview() {
       const sections = BEERS.length;
       let mm = gsap.matchMedia();
 
-      // Mobile Animation (no horizontal panning)
+      // Mobile Animation (no horizontal panning, with snap behavior)
       mm.add("(max-width: 767px)", () => {
         gsap.set('.master-glass-viewport', { xPercent: 0 });
-        // Significantly reduced scroll distance (50% instead of 100% per section) 
-        // and tightened scrub (0.2s instead of 1.2s) for a much more obedient and faster mobile feel
         const tl = gsap.timeline({ 
           scrollTrigger: { 
             trigger: containerRef.current, 
             start: 'top top', 
-            end: `+=${(sections - 1) * 50}%`, 
+            end: `+=${(sections - 1) * 100}%`, 
             pin: true, 
-            scrub: 0.15 
+            scrub: 0.5,
+            snap: {
+              snapTo: 1 / (sections - 1), // Snaps exactly to each beer
+              duration: { min: 0.3, max: 0.6 },
+              delay: 0.05, // Almost immediate snap when user stops scrolling
+              ease: 'power2.inOut'
+            }
           } 
         });
         
@@ -387,9 +391,9 @@ export default function LiquidLegacyPreview() {
         </div>
       )}
 
-      {/* PINNED EXPERIENCE */}
+      {/* HERO — full viewport with pinning */}
       {isLoaded && (
-        <div ref={containerRef} className="relative h-screen w-full overflow-hidden">
+        <div ref={containerRef} className="relative h-[100dvh] w-full overflow-hidden">
           
           <div className="absolute inset-0 z-0 bg-[#050505] w-full h-full">
             {BEERS.map((beer, i) => (
@@ -508,8 +512,9 @@ export default function LiquidLegacyPreview() {
                 <div
                   key={`content-${beer.id}`}
                   className={`content-${i} absolute inset-0 opacity-0
-                    flex flex-col items-center justify-end pb-[8vh]
-                    md:grid md:grid-cols-2 md:items-center md:pb-0`}
+                    flex flex-col items-center justify-end pb-24 px-5
+                    md:flex-row md:items-center md:justify-start md:pb-0 md:px-0
+                    ${isEven ? 'md:justify-end md:pr-[12%]' : 'md:justify-start md:pl-[12%]'}`}
                   style={{ opacity: i === 0 ? 1 : 0 }}
                 >
                   {isEven ? (
