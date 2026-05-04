@@ -7,6 +7,11 @@ import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger);
 
+if (typeof window !== 'undefined') {
+  window.history.scrollRestoration = 'manual';
+  ScrollTrigger.clearScrollMemory?.("manual");
+}
+
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
 const BEERS = [
@@ -99,7 +104,7 @@ export default function LiquidLegacyPreview() {
   // --- LOADING SCREEN ---
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      window.history.scrollRestoration = 'manual';
+      document.body.style.overflow = 'hidden';
       window.scrollTo(0, 0);
     }
 
@@ -306,8 +311,10 @@ export default function LiquidLegacyPreview() {
   useEffect(() => {
     if (!isLoaded) return;
     
-    // Force scroll to top right after content renders
+    // Unlock scrolling and force scroll to top right after content renders
+    document.body.style.overflow = '';
     window.scrollTo(0, 0);
+    ScrollTrigger.clearScrollMemory?.();
     
     const ctx = gsap.context(() => {
       const sections = BEERS.length;
@@ -484,7 +491,6 @@ export default function LiquidLegacyPreview() {
             </div>
           </div>
 
-          {/* Text content layer — on mobile: bottom-anchored; on desktop: side-positioned via GSAP */}
           <div className="absolute inset-0 z-30 pointer-events-none">
             {BEERS.map((beer, i) => {
               const isEven = i % 2 === 0;
@@ -492,31 +498,59 @@ export default function LiquidLegacyPreview() {
                 <div
                   key={`content-${beer.id}`}
                   className={`content-${i} absolute inset-0 opacity-0
-                    flex flex-col items-center justify-end pb-10 px-5
-                    md:flex-row md:items-center md:justify-start md:pb-0 md:px-0
-                    ${isEven ? 'md:justify-end md:pr-[12%]' : 'md:justify-start md:pl-[12%]'}`}
+                    flex flex-col items-center justify-end pb-[8vh]
+                    md:grid md:grid-cols-2 md:items-center md:pb-0`}
                   style={{ opacity: i === 0 ? 1 : 0 }}
                 >
-                  <div className="w-full max-w-xl text-center md:text-left overflow-hidden">
-                    <span className="block text-[9px] md:text-xs font-bold tracking-[0.5em] uppercase mb-3 md:mb-6 text-[#d4af37]">{beer.notes}</span>
-                    <h2
-                      className="leading-none tracking-tight md:tracking-tighter font-black mb-4 md:mb-10 uppercase text-white w-full md:text-7xl"
-                      style={{
-                        fontFamily: 'Playfair Display, serif',
-                        textShadow: '0 10px 30px rgba(0,0,0,0.9)',
-                        fontSize: 'clamp(1.5rem, 9vw, 1.95rem)',
-                      } as React.CSSProperties}
-                    >
-                      {beer.name}
-                    </h2>
-                    <div className="flex flex-wrap gap-2 md:gap-4 justify-center md:justify-start">
-                      {beer.ingredients.map((ing, idx) => (
-                        <div key={idx} className="px-3 md:px-8 py-1.5 md:py-2.5 rounded-full border border-[#d4af37]/20 backdrop-blur-2xl bg-[#1a0f0a]/70 shadow-[0_6px_20px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.05)] transition-all duration-500 hover:border-[#d4af37]/50 group cursor-default">
-                          <span className="text-[8px] md:text-xs font-bold tracking-[0.3em] md:tracking-[0.5em] uppercase text-[#d4af37]/90 group-hover:text-[#d4af37] transition-colors duration-300">{ing}</span>
+                  {isEven ? (
+                    <>
+                      <div className="hidden md:block"></div>
+                      <div className="w-full px-5 md:pr-10 lg:pr-[15%] flex flex-col items-center md:items-start text-center md:text-left pointer-events-auto z-40 relative">
+                        <span className="block text-[9px] md:text-xs font-bold tracking-[0.5em] uppercase mb-3 md:mb-6 text-[#d4af37]">{beer.notes}</span>
+                        <h2
+                          className="leading-none tracking-tight md:tracking-tighter font-black mb-4 md:mb-8 uppercase text-white w-full"
+                          style={{
+                            fontFamily: 'Playfair Display, serif',
+                            textShadow: '0 10px 30px rgba(0,0,0,0.9)',
+                            fontSize: 'clamp(2rem, 6vw, 4.5rem)',
+                          } as React.CSSProperties}
+                        >
+                          {beer.name}
+                        </h2>
+                        <div className="flex flex-wrap gap-2 md:gap-3 justify-center md:justify-start">
+                          {beer.ingredients.map((ing, idx) => (
+                            <div key={idx} className="px-3 md:px-6 py-1.5 md:py-2 rounded-full border border-[#d4af37]/20 backdrop-blur-2xl bg-[#1a0f0a]/70 shadow-[0_6px_20px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.05)] transition-all duration-500 hover:border-[#d4af37]/50 group cursor-default">
+                              <span className="text-[8px] md:text-xs font-bold tracking-[0.3em] md:tracking-[0.4em] uppercase text-[#d4af37]/90 group-hover:text-[#d4af37] transition-colors duration-300 whitespace-nowrap">{ing}</span>
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                  </div>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="w-full px-5 md:pl-10 lg:pl-[15%] flex flex-col items-center md:items-start text-center md:text-left pointer-events-auto z-40 relative">
+                        <span className="block text-[9px] md:text-xs font-bold tracking-[0.5em] uppercase mb-3 md:mb-6 text-[#d4af37]">{beer.notes}</span>
+                        <h2
+                          className="leading-none tracking-tight md:tracking-tighter font-black mb-4 md:mb-8 uppercase text-white w-full"
+                          style={{
+                            fontFamily: 'Playfair Display, serif',
+                            textShadow: '0 10px 30px rgba(0,0,0,0.9)',
+                            fontSize: 'clamp(2rem, 6vw, 4.5rem)',
+                          } as React.CSSProperties}
+                        >
+                          {beer.name}
+                        </h2>
+                        <div className="flex flex-wrap gap-2 md:gap-3 justify-center md:justify-start">
+                          {beer.ingredients.map((ing, idx) => (
+                            <div key={idx} className="px-3 md:px-6 py-1.5 md:py-2 rounded-full border border-[#d4af37]/20 backdrop-blur-2xl bg-[#1a0f0a]/70 shadow-[0_6px_20px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.05)] transition-all duration-500 hover:border-[#d4af37]/50 group cursor-default">
+                              <span className="text-[8px] md:text-xs font-bold tracking-[0.3em] md:tracking-[0.4em] uppercase text-[#d4af37]/90 group-hover:text-[#d4af37] transition-colors duration-300 whitespace-nowrap">{ing}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="hidden md:block"></div>
+                    </>
+                  )}
                 </div>
               );
             })}

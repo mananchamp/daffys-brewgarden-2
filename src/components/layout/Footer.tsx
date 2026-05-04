@@ -20,7 +20,7 @@ const footerLinks = {
 export default function Footer() {
   return (
     <footer
-      className="relative py-20 px-6 md:px-12 border-t border-[rgba(201,168,76,0.1)]"
+      className="relative py-20 px-6 md:px-12 border-t border-[rgba(201,168,76,0.1)] overflow-hidden"
       style={{ background: 'linear-gradient(180deg, var(--bg-void) 0%, #020202 100%)' }}
     >
       {/* Top ambient gradient */}
