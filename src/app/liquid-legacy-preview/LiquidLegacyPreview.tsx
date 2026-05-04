@@ -98,6 +98,11 @@ export default function LiquidLegacyPreview() {
 
   // --- LOADING SCREEN ---
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.history.scrollRestoration = 'manual';
+      window.scrollTo(0, 0);
+    }
+
     let animationFrameId: number;
     let progress = 0;
     const canvas = loadingCanvasRef.current;
@@ -300,45 +305,57 @@ export default function LiquidLegacyPreview() {
   // --- GSAP ORCHESTRATION ---
   useEffect(() => {
     if (!isLoaded) return;
+    
+    // Force scroll to top right after content renders
+    window.scrollTo(0, 0);
+    
     const ctx = gsap.context(() => {
-      const isMobile = window.innerWidth < 768;
-      
-      // Set initial states for the first beer
-      gsap.set('.master-glass-viewport', { xPercent: isMobile ? 0 : -22 });
-
       const sections = BEERS.length;
-      const tl = gsap.timeline({ scrollTrigger: { trigger: containerRef.current, start: 'top top', end: `+=${(sections - 1) * 100}%`, pin: true, scrub: 1.2 } });
-      
-      BEERS.forEach((beer, i) => {
-        if (i === 0) return; // First beer is already visible
+      let mm = gsap.matchMedia();
+
+      // Mobile Animation (no horizontal panning)
+      mm.add("(max-width: 767px)", () => {
+        gsap.set('.master-glass-viewport', { xPercent: 0 });
+        const tl = gsap.timeline({ scrollTrigger: { trigger: containerRef.current, start: 'top top', end: `+=${(sections - 1) * 100}%`, pin: true, scrub: 1.2 } });
         
-        const start = i - 1;
-        const isEven = i % 2 === 0;
-        
-        // Panning crossfade
-        tl.to(`.bg-layer-${i-1}`, { 
-          opacity: 0, 
-          xPercent: isMobile ? 0 : (isEven ? 10 : -10), 
-          duration: 0.7, 
-          ease: 'power1.inOut' 
-        }, start);
-        
-        tl.fromTo(`.bg-layer-${i}`, 
-          { opacity: 0, xPercent: isMobile ? 0 : (isEven ? -10 : 10) }, 
-          { opacity: 1, xPercent: 0, duration: 0.7, ease: 'power1.inOut' }, 
-          start + 0.3
-        );
-        
-        // Master viewport moves continuously - disable horizontal movement on mobile to prevent overflow
-        tl.to('.master-glass-viewport', { xPercent: isMobile ? 0 : (isEven ? -22 : 22), duration: 1, ease: 'power2.inOut' }, start);
-        
-        // Fluid sequential transitions for glasses and text content
-        tl.to(`.glass-${i-1}`, { opacity: 0, scale: 0.8, y: -20, duration: 0.5, ease: 'power2.in' }, start);
-        tl.fromTo(`.glass-${i}`, { opacity: 0, scale: 1.1, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'power2.out' }, start + 0.5);
-        
-        tl.to(`.content-${i-1}`, { opacity: 0, y: -40, duration: 0.5, ease: 'power2.in' }, start);
-        tl.fromTo(`.content-${i}`, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, start + 0.5);
+        BEERS.forEach((beer, i) => {
+          if (i === 0) return;
+          const start = i - 1;
+          
+          tl.to(`.bg-layer-${i-1}`, { opacity: 0, duration: 0.7, ease: 'power1.inOut' }, start);
+          tl.fromTo(`.bg-layer-${i}`, { opacity: 0 }, { opacity: 1, duration: 0.7, ease: 'power1.inOut' }, start + 0.3);
+          
+          tl.to(`.glass-${i-1}`, { opacity: 0, scale: 0.8, y: -20, duration: 0.5, ease: 'power2.in' }, start);
+          tl.fromTo(`.glass-${i}`, { opacity: 0, scale: 1.1, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'power2.out' }, start + 0.5);
+          
+          tl.to(`.content-${i-1}`, { opacity: 0, y: -40, duration: 0.5, ease: 'power2.in' }, start);
+          tl.fromTo(`.content-${i}`, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, start + 0.5);
+        });
       });
+
+      // Desktop Animation (with horizontal panning)
+      mm.add("(min-width: 768px)", () => {
+        gsap.set('.master-glass-viewport', { xPercent: -22 });
+        const tl = gsap.timeline({ scrollTrigger: { trigger: containerRef.current, start: 'top top', end: `+=${(sections - 1) * 100}%`, pin: true, scrub: 1.2 } });
+        
+        BEERS.forEach((beer, i) => {
+          if (i === 0) return;
+          const start = i - 1;
+          const isEven = i % 2 === 0;
+          
+          tl.to(`.bg-layer-${i-1}`, { opacity: 0, xPercent: isEven ? 10 : -10, duration: 0.7, ease: 'power1.inOut' }, start);
+          tl.fromTo(`.bg-layer-${i}`, { opacity: 0, xPercent: isEven ? -10 : 10 }, { opacity: 1, xPercent: 0, duration: 0.7, ease: 'power1.inOut' }, start + 0.3);
+          
+          tl.to('.master-glass-viewport', { xPercent: isEven ? -22 : 22, duration: 1, ease: 'power2.inOut' }, start);
+          
+          tl.to(`.glass-${i-1}`, { opacity: 0, scale: 0.8, y: -20, duration: 0.5, ease: 'power2.in' }, start);
+          tl.fromTo(`.glass-${i}`, { opacity: 0, scale: 1.1, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'power2.out' }, start + 0.5);
+          
+          tl.to(`.content-${i-1}`, { opacity: 0, y: -40, duration: 0.5, ease: 'power2.in' }, start);
+          tl.fromTo(`.content-${i}`, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, start + 0.5);
+        });
+      });
+
     }, containerRef);
     return () => ctx.revert();
   }, [isLoaded]);
@@ -357,9 +374,9 @@ export default function LiquidLegacyPreview() {
       {isLoaded && (
         <div ref={containerRef} className="relative h-screen w-full overflow-hidden">
           
-          <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 z-0 bg-[#050505] w-full h-full">
             {BEERS.map((beer, i) => (
-              <div key={`bg-${beer.id}`} className={`bg-layer-${i} absolute inset-0 opacity-0`} style={{ opacity: i === 0 ? 1 : 0 }}>
+              <div key={`bg-${beer.id}`} className={`bg-layer-${i} absolute inset-0 w-full h-full opacity-0`} style={{ opacity: i === 0 ? 1 : 0 }}>
                 
                 {/* All beers use their bgImage — premium beers get lighter filter to let the photo breathe */}
                 <Image
