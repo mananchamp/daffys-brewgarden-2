@@ -323,7 +323,17 @@ export default function LiquidLegacyPreview() {
       // Mobile Animation (no horizontal panning)
       mm.add("(max-width: 767px)", () => {
         gsap.set('.master-glass-viewport', { xPercent: 0 });
-        const tl = gsap.timeline({ scrollTrigger: { trigger: containerRef.current, start: 'top top', end: `+=${(sections - 1) * 100}%`, pin: true, scrub: 1.2 } });
+        // Significantly reduced scroll distance (50% instead of 100% per section) 
+        // and tightened scrub (0.2s instead of 1.2s) for a much more obedient and faster mobile feel
+        const tl = gsap.timeline({ 
+          scrollTrigger: { 
+            trigger: containerRef.current, 
+            start: 'top top', 
+            end: `+=${(sections - 1) * 50}%`, 
+            pin: true, 
+            scrub: 0.15 
+          } 
+        });
         
         BEERS.forEach((beer, i) => {
           if (i === 0) return;
@@ -479,7 +489,7 @@ export default function LiquidLegacyPreview() {
 
           {/* Glass layer — on mobile: top-anchored; on desktop: centered with horizontal GSAP pan */}
           <div className="absolute inset-0 flex items-start md:items-center justify-center z-20 pointer-events-none">
-            <div className="master-glass-viewport relative w-[70vw] md:w-[45vw] h-[52vh] md:h-[80vh] flex items-center justify-center will-change-transform mt-[10vh] md:mt-0">
+            <div className="master-glass-viewport relative w-[70vw] md:w-[45vw] h-[45vh] md:h-[80vh] flex items-center justify-center will-change-transform mt-[8vh] md:mt-0">
               {BEERS.map((beer, i) => (
                 <div key={`glass-${beer.id}`} className={`glass-${i} absolute inset-0 flex items-center justify-center`} style={{ opacity: i === 0 ? 1 : 0 }}>
                   <div className="relative w-full h-full">
