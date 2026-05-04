@@ -25,6 +25,7 @@ interface CocktailCardProps {
  */
 export default function CocktailCard({ cocktail, index }: CocktailCardProps) {
   const [flipped, setFlipped] = useState(false);
+  const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
   return (
     <motion.div
@@ -49,7 +50,7 @@ export default function CocktailCard({ cocktail, index }: CocktailCardProps) {
           style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
         >
           <Image
-            src={cocktail.image}
+            src={`${BASE}${cocktail.image}`}
             alt={cocktail.name}
             fill
             className="object-cover object-center"
@@ -166,7 +167,7 @@ export default function CocktailCard({ cocktail, index }: CocktailCardProps) {
               className="font-sans italic mb-4"
               style={{ fontSize: '0.72rem', color: 'rgba(245,240,232,0.45)', lineHeight: 1.75 }}
             >
-              "{cocktail.story}"
+              &quot;{cocktail.story}&quot;
             </p>
             <h3
               className="font-display text-lg"

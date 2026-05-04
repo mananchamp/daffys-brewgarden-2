@@ -206,7 +206,7 @@ export default function Reservation() {
                     The door awaits, {form.name || 'guest'}.
                   </h3>
                   <p className="text-xs text-[var(--text-muted)] font-sans leading-relaxed max-w-xs">
-                    We've sent the details to your email. Arrive with curiosity. Leave your expectations at the pastrami shop.
+                    We&apos;ve sent the details to your email. Arrive with curiosity. Leave your expectations at the pastrami shop.
                   </p>
                 </motion.div>
               )}

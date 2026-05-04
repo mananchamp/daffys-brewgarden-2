@@ -80,9 +80,9 @@ export default function About() {
                 className="font-display-italic text-[clamp(2rem,5vw,3.5rem)] text-[var(--text-primary)] leading-tight"
                 style={{ lineHeight: 1.15 }}
               >
-                "Born behind a<br />
+                &quot;Born behind a<br />
                 <span className="gold-text">pastrami shop</span>
-                <br />on Carrer del Parlament."
+                <br />on Carrer del Parlament.&quot;
               </blockquote>
               <div className="h-px w-24 bg-[rgba(201,168,76,0.3)] mt-8 mb-6" />
               <p className="text-sm text-[var(--text-muted)] font-sans leading-relaxed max-w-xs">
@@ -95,13 +95,13 @@ export default function About() {
           <AnimatedSection direction="left" delay={200}>
             <motion.div style={{ y: yImage }} className="space-y-6">
               <p className="text-sm text-[var(--text-muted)] font-sans leading-[1.9]">
-                Daffy's Brewgarden was conceived as an act of deliberate mystery. In a world where
+                Daffy&apos;s Brewgarden was conceived as an act of deliberate mystery. In a world where
                 everything is visible, we chose to hide. Not from you — but for you.
               </p>
               <p className="text-sm text-[var(--text-muted)] font-sans leading-[1.9]">
                 The entrance is a refrigerator door. The bar is a cathedral of carved wood and
                 Carrara marble. Every cocktail is a performance, engineered in our subterranean lab
-                from ingredients most chefs haven't heard of.
+                from ingredients most chefs haven&apos;t heard of.
               </p>
               <p className="text-sm text-[var(--text-muted)] font-sans leading-[1.9]">
                 We believe a bar should make you feel something. Not just drunk.

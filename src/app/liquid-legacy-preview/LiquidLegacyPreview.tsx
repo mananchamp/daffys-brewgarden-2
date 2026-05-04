@@ -7,12 +7,14 @@ import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+
 const BEERS = [
   {
     id: 'hefeweizen',
     name: 'HEFEWEIZEN',
-    glass: '/glass_hefeweizen_new.png',
-    bgImage: '/bg_hefeweizen_generated.png',
+    glass: `${BASE}/glass_hefeweizen_new.png`,
+    bgImage: `${BASE}/bg_hefeweizen_generated.png`,
     tint: '#FDE047',
     notes: 'Banana & Citrus Zest',
     ingredients: ['Wheat Stalks', 'Banana Zest', 'Citrus Peel'],
@@ -21,8 +23,8 @@ const BEERS = [
   {
     id: 'wit-bier',
     name: 'WIT BIER',
-    glass: '/glass_wit_bier_nobg.png',
-    bgImage: '/bg_wit_bier.png',
+    glass: `${BASE}/glass_wit_bier_nobg.png`,
+    bgImage: `${BASE}/bg_wit_bier.png`,
     tint: '#FDBA74',
     notes: 'Orange Peel & Coriander',
     ingredients: ['Orange Peel', 'Crushed Coriander', 'Creamy Oats'],
@@ -30,8 +32,8 @@ const BEERS = [
   {
     id: 'lager',
     name: 'LAGER',
-    glass: '/glass_lager_new.png',
-    bgImage: '/bg_lager_generated.png',
+    glass: `${BASE}/glass_lager_new.png`,
+    bgImage: `${BASE}/bg_lager_generated.png`,
     tint: '#d4af37',
     notes: 'Clean Corn, Biscuit Malt, & Floral Hops',
     ingredients: ['Yellow Flowers & Hops', 'Biscuit Malt', 'Clean Corn'],
@@ -40,8 +42,8 @@ const BEERS = [
   {
     id: 'whisky-ale',
     name: 'WHISKY ALE',
-    glass: '/glass_whisky_ale_v2.png',
-    bgImage: '/bg_whisky_ale_generated.png',
+    glass: `${BASE}/glass_whisky_ale_v2.png`,
+    bgImage: `${BASE}/bg_whisky_ale_generated.png`,
     tint: '#78350F',
     notes: 'Charred Oak & Campfire Smoke',
     ingredients: ['Charred Oak', 'Glowing Embers', 'Smoke Wisps'],
@@ -50,8 +52,8 @@ const BEERS = [
   {
     id: 'nitro-stout',
     name: 'NITRO STOUT',
-    glass: '/glass_nitro_stout_nobg.png',
-    bgImage: '/bg_nitro_stout_generated.png',
+    glass: `${BASE}/glass_nitro_stout_nobg.png`,
+    bgImage: `${BASE}/bg_nitro_stout_generated.png`,
     tint: '#292524',
     notes: 'Roasted Coffee & Cocoa',
     ingredients: ['Coffee Beans', 'Raw Cocoa', 'Nitro Head'],
@@ -60,8 +62,8 @@ const BEERS = [
   {
     id: 'ipa',
     name: 'IPA',
-    glass: '/glass_ipa_nobg.png',
-    bgImage: '/bg_ipa.png',
+    glass: `${BASE}/glass_ipa_nobg.png`,
+    bgImage: `${BASE}/bg_ipa.png`,
     tint: '#166534',
     notes: 'Pine & Grapefruit Zest',
     ingredients: ['Pine Needles', 'Ruby Grapefruit', 'Resin Drops'],
@@ -69,8 +71,8 @@ const BEERS = [
   {
     id: 'mead',
     name: 'MEAD',
-    glass: '/glass_mead_nobg.png',
-    bgImage: '/bg_mead_generated.png',
+    glass: `${BASE}/glass_mead_nobg.png`,
+    bgImage: `${BASE}/bg_mead_generated.png`,
     tint: '#D97706',
     notes: 'Local Honey & Wild Herbs',
     ingredients: ['Local Honey', 'Wildflowers', 'Green Herbs'],
@@ -79,8 +81,8 @@ const BEERS = [
   {
     id: 'specialty',
     name: 'SPECIALTY',
-    glass: '/glass_specialty_nobg.png',
-    bgImage: '/bg_specialty_generated.png',
+    glass: `${BASE}/glass_specialty_nobg.png`,
+    bgImage: `${BASE}/bg_specialty_generated.png`,
     tint: '#BE185D',
     notes: 'Rotating / Fruity & Spiced',
     ingredients: ['Mixed Berries', 'Exotic Spices', 'Star Anise'],
@@ -451,34 +453,49 @@ export default function LiquidLegacyPreview() {
             ))}
           </div>
 
-          <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-            <div className="master-glass-viewport relative w-[65vw] md:w-[45vw] h-[60vh] md:h-[80vh] flex items-center justify-center will-change-transform">
+          {/* Glass layer — on mobile: top-anchored; on desktop: centered with horizontal GSAP pan */}
+          <div className="absolute inset-0 flex items-start md:items-center justify-center z-20 pointer-events-none">
+            <div className="master-glass-viewport relative w-[70vw] md:w-[45vw] h-[52vh] md:h-[80vh] flex items-center justify-center will-change-transform mt-[10vh] md:mt-0">
               {BEERS.map((beer, i) => (
                 <div key={`glass-${beer.id}`} className={`glass-${i} absolute inset-0 flex items-center justify-center`} style={{ opacity: i === 0 ? 1 : 0 }}>
-                  <div className="relative w-full h-full transform scale-110 md:scale-110">
+                  <div className="relative w-full h-full">
                     <Image src={beer.glass} alt={beer.name} fill className="object-contain" />
-                    {/* Contact Shadow for Grounding (esp for Lager and Whisky) */}
-                    {['lager', 'whisky-ale'].includes(beer.id) && <div className="absolute bottom-24 left-1/2 -translate-x-1/2 w-48 h-8 bg-black/40 blur-xl rounded-full" />}
+                    {['lager', 'whisky-ale'].includes(beer.id) && <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-40 h-6 bg-black/40 blur-xl rounded-full" />}
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
+          {/* Text content layer — on mobile: bottom-anchored; on desktop: side-positioned via GSAP */}
           <div className="absolute inset-0 z-30 pointer-events-none">
             {BEERS.map((beer, i) => {
               const isEven = i % 2 === 0;
               return (
-                <div key={`content-${beer.id}`} className={`content-${i} absolute inset-0 flex flex-col md:flex-row items-center justify-center md:justify-start ${isEven ? 'md:justify-end md:pr-[12%]' : 'md:justify-start md:pl-[12%]'} px-6 md:px-0 opacity-0`} style={{ opacity: i === 0 ? 1 : 0 }}>
-                  <div className="max-w-xl text-center md:text-left pt-[40vh] md:pt-0">
-                    <span className="block text-[10px] md:text-xs font-bold tracking-[0.6em] uppercase mb-4 md:mb-6 text-[#d4af37]">{beer.notes}</span>
-                    <h2 className="text-4xl md:text-7xl font-black mb-6 md:mb-10 leading-none tracking-tighter uppercase text-white" style={{ fontFamily: 'Playfair Display, serif', textShadow: '0 20px 40px rgba(0,0,0,0.8)' }}>
+                <div
+                  key={`content-${beer.id}`}
+                  className={`content-${i} absolute inset-0 opacity-0
+                    flex flex-col items-center justify-end pb-10 px-5
+                    md:flex-row md:items-center md:justify-start md:pb-0 md:px-0
+                    ${isEven ? 'md:justify-end md:pr-[12%]' : 'md:justify-start md:pl-[12%]'}`}
+                  style={{ opacity: i === 0 ? 1 : 0 }}
+                >
+                  <div className="w-full max-w-xl text-center md:text-left overflow-hidden">
+                    <span className="block text-[9px] md:text-xs font-bold tracking-[0.5em] uppercase mb-3 md:mb-6 text-[#d4af37]">{beer.notes}</span>
+                    <h2
+                      className="leading-none tracking-tight md:tracking-tighter font-black mb-4 md:mb-10 uppercase text-white w-full md:text-7xl"
+                      style={{
+                        fontFamily: 'Playfair Display, serif',
+                        textShadow: '0 10px 30px rgba(0,0,0,0.9)',
+                        fontSize: 'clamp(1.5rem, 9vw, 1.95rem)',
+                      } as React.CSSProperties}
+                    >
                       {beer.name}
                     </h2>
                     <div className="flex flex-wrap gap-2 md:gap-4 justify-center md:justify-start">
                       {beer.ingredients.map((ing, idx) => (
-                        <div key={idx} className="px-4 md:px-8 py-2 md:py-2.5 rounded-full border border-[#d4af37]/20 backdrop-blur-2xl bg-[#1a0f0a]/60 shadow-[0_10px_40px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.05)] transition-all duration-500 hover:border-[#d4af37]/50 group cursor-default">
-                          <span className="text-[9px] md:text-xs font-bold tracking-[0.4em] md:tracking-[0.5em] uppercase text-[#d4af37]/90 group-hover:text-[#d4af37] transition-colors duration-300">{ing}</span>
+                        <div key={idx} className="px-3 md:px-8 py-1.5 md:py-2.5 rounded-full border border-[#d4af37]/20 backdrop-blur-2xl bg-[#1a0f0a]/70 shadow-[0_6px_20px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.05)] transition-all duration-500 hover:border-[#d4af37]/50 group cursor-default">
+                          <span className="text-[8px] md:text-xs font-bold tracking-[0.3em] md:tracking-[0.5em] uppercase text-[#d4af37]/90 group-hover:text-[#d4af37] transition-colors duration-300">{ing}</span>
                         </div>
                       ))}
                     </div>

@@ -153,7 +153,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 1, ease: [0.16, 1, 0.3, 1] }}
         >
-          Daffy's
+          Daffy&apos;s
         </motion.h1>
         <motion.p
           className="font-display-italic text-[clamp(1rem,3vw,2rem)] gold-shimmer mb-12 tracking-[0.15em]"

@@ -6,51 +6,51 @@ import AnimatedSection from '@/components/ui/AnimatedSection';
 
 const chapters = [
   {
-    id: 'arrival',
-    label: 'I. Arrival',
-    title: 'The Refrigerator Door',
+    id: 'vats',
+    label: 'From The Vats',
+    title: 'Brewed Right Here.',
     description:
-      'You find it between a neon sign and a stack of pastrami. A handle. A pull. Cool air. And then — the sound of jazz.',
+      'Every pint at Daffy\'s carries a story born in copper and patience. Our in-house microbrewery turns grain, hops, and Bengaluru water into something quietly extraordinary. The crowd comes back for a reason — and that reason is usually the Whiskey Beer.',
     items: [
-      { name: 'The Initiation', desc: 'Amaro, beeswax, smoked salt', price: '22' },
-      { name: 'First Light', desc: 'Citrus vodka, chamomile, morning dew', price: '19' },
-      { name: 'The Threshold', desc: 'Rye whiskey, walnut bitters, orange peel', price: '24' },
+      { name: 'Whiskey Beer', desc: 'House lager aged on whiskey-soaked oak chips — the signature that started it all', price: '420' },
+      { name: 'Monsoon Witbier', desc: 'Unfiltered wheat ale with coriander seed & dried orange peel', price: '360' },
+      { name: 'Dark Harvest Stout', desc: 'Full-bodied dry stout, notes of roasted barley, bittersweet cocoa & cold brew', price: '390' },
     ],
   },
   {
-    id: 'descent',
-    label: 'II. The Descent',
-    title: 'Into the Warm Dark',
+    id: 'plates',
+    label: 'Local Plates',
+    title: 'Pub Grub, Done Properly.',
     description:
-      'The stairs curve inward. Carved wood breathes around you. Carrara marble catches candlelight. You are somewhere else now.',
+      'Forget the usual suspects. The kitchen at Daffy\'s draws from the South — Kerala backyards, Coorg hillsides, coastal smoke pits. It\'s honest food, the kind that earns its seat beside a cold pint without apology.',
     items: [
-      { name: 'Obsidian Hour', desc: 'Cold-brew rum, coconut, black sesame', price: '26' },
-      { name: 'The Cave', desc: 'Aged Mezcal, mushroom tincture, pine', price: '28' },
-      { name: 'Subterranea', desc: 'Earthy gin, truffle oil, sea salt foam', price: '30' },
+      { name: 'Neer Dosa & Kerala Curry', desc: 'Lacy rice crepes with a slow-cooked coastal chicken curry, tempered in coconut oil', price: '320' },
+      { name: 'Coorgi Chilli Pork', desc: 'Rustic hill-country pork tossed in Kodagu spice, ginger & vinegar — a Daffy\'s cult classic', price: '480' },
+      { name: 'Brewery Smokehouse Platter', desc: 'Smoked meats, pickled vegetables & sourdough — built to share, gone before you plan to', price: '680' },
     ],
   },
   {
-    id: 'revelation',
-    label: 'III. Revelation',
-    title: 'The Golden Hours',
+    id: 'deck',
+    label: 'The Garden Deck',
+    title: 'Under an Open Sky.',
     description:
-      'The night opens like a flower. Conversations bloom. Every sip unlocks a new layer of the cocktail — and of yourself.',
+      'The Garden Deck doesn\'t try to be a venue — it simply is one. Strung lights, breeze off the 100 ft. Road, retro vinyls drifting out from the bar. Time slows here. Conversations lengthen. Even the evenings seem reluctant to end.',
     items: [
-      { name: 'Midnight Bloom', desc: 'Jasmine gin, elderflower, violet', price: '25' },
-      { name: 'The Golden Veil', desc: '24-year Scotch, saffron, smoke crystal', price: '48' },
-      { name: 'Marbled Siren', desc: 'Grappa, white peach, almond foam', price: '32' },
+      { name: 'Retro Vinyl Evenings', desc: 'Classic rock, Kannada soul & 70s Bollywood — curated, never algorithmic', price: '' },
+      { name: 'Open-Sky Seating', desc: 'Shaded canopy tables with garden greenery — the Bengaluru evening doing the rest', price: '' },
+      { name: 'Weekend Social Hours', desc: 'Live acoustic sets and weekend happy-hour pours from 4 PM onwards', price: '' },
     ],
   },
   {
-    id: 'farewell',
-    label: 'IV. Farewell',
-    title: 'The Last Pour',
+    id: 'paws',
+    label: 'Paws & Pints',
+    title: 'Dogs Welcome. Always.',
     description:
-      "Before you leave, one more. The bartender slides it across the marble without a word. You understand.",
+      'Bring them along — no question about it. The Garden Deck at Daffy\'s has been a dog-friendly space since day one, and the regulars wouldn\'t have it any other way. Your furry companion gets water, shade, and all the attention they deserve. You get a cold pint. Everyone wins.',
     items: [
-      { name: 'Nightcap Elegy', desc: 'Cognac, dark chocolate, tobacco leaf', price: '34' },
-      { name: 'Last Words', desc: 'Aged Rum, espresso, vanilla char', price: '22' },
-      { name: 'The Exit', desc: 'Champagne, rose, edible gold flake', price: '38' },
+      { name: 'The Usual Suspects', desc: 'Golden retrievers, indie dogs & the occasional dachshund — our most loyal patrons', price: '' },
+      { name: 'Shaded Garden Tables', desc: 'Ample space for leashes, lounging & a well-behaved snooze in the evening breeze', price: '' },
+      { name: 'Pet-Friendly Sundays', desc: 'Join the weekly meetup — Bengaluru\'s dog lovers, cold brews & good company', price: '' },
     ],
   },
 ];
@@ -92,11 +92,12 @@ export default function Experience() {
         <AnimatedSection className="mb-16">
           <div className="flex items-center gap-4 mb-6">
             <div className="h-px w-8 bg-[var(--gold)] opacity-50" />
-            <span className="label-text text-[0.6rem] text-[var(--gold)]">The Menu</span>
+            <span className="label-text text-[0.6rem] text-[var(--gold)]">The Experience</span>
           </div>
           <h2 className="font-display text-[clamp(2.5rem,6vw,5rem)] text-[var(--text-primary)] leading-none">
-            A Journey in<br />
-            <span className="font-display-italic gold-text">Four Chapters</span>
+            Four Reasons
+            <br />
+            <span className="font-display-italic gold-text">to Stay.</span>
           </h2>
         </AnimatedSection>
 
@@ -137,7 +138,7 @@ export default function Experience() {
             {/* Left: Story */}
             <div>
               <p className="label-text text-[0.55rem] text-[var(--gold)] mb-4">
-                Chapter {active + 1} of {chapters.length}
+                {active + 1} of {chapters.length}
               </p>
               <h3 className="font-display text-3xl md:text-4xl text-[var(--text-primary)] mb-6 leading-tight">
                 {chapters[active].title}
@@ -147,11 +148,11 @@ export default function Experience() {
                 {chapters[active].description}
               </p>
 
-              {/* Roman numeral decorative */}
+              {/* Decorative glyph */}
               <div
                 className="mt-12 font-display text-[8rem] leading-none text-[rgba(201,168,76,0.04)] select-none"
               >
-                {['I', 'II', 'III', 'IV'][active]}
+                {['⌾', '✦', '❧', '⁜'][active]}
               </div>
             </div>
 
@@ -171,9 +172,11 @@ export default function Experience() {
                     </h4>
                     <p className="text-xs text-[var(--text-faint)] font-sans">{item.desc}</p>
                   </div>
-                  <div className="flex-shrink-0">
-                    <span className="font-display text-[var(--gold)] text-lg">€{item.price}</span>
-                  </div>
+                  {item.price && (
+                    <div className="flex-shrink-0">
+                      <span className="font-display text-[var(--gold)] text-lg">₹{item.price}</span>
+                    </div>
+                  )}
                 </motion.div>
               ))}
             </div>

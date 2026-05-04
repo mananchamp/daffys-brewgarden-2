@@ -3,11 +3,13 @@
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+
 const BEERS = [
   {
     id: 'hefeweizen',
     name: 'Hefeweizen',
-    img: '/Hefeweizen.png',
+    img: `${BASE}/Hefeweizen.png`,
     color: '#F5C518',
     mugColor: '#e8b820',
     fogColor: 'rgba(253,224,71,0.18)',
@@ -20,7 +22,7 @@ const BEERS = [
   {
     id: 'wit-bier',
     name: 'Wit Bier',
-    img: '/Wit Bier.png',
+    img: `${BASE}/Wit Bier.png`,
     color: '#FDBA74',
     mugColor: '#f59e5c',
     fogColor: 'rgba(253,186,116,0.18)',
@@ -33,7 +35,7 @@ const BEERS = [
   {
     id: 'lager',
     name: 'Lager',
-    img: '/Lager.png',
+    img: `${BASE}/Lager.png`,
     color: '#FBBF24',
     mugColor: '#d4a017',
     fogColor: 'rgba(251,191,36,0.18)',
@@ -46,7 +48,7 @@ const BEERS = [
   {
     id: 'whisky-ale',
     name: 'Whisky Ale',
-    img: '/Whisky Ale.png',
+    img: `${BASE}/Whisky Ale.png`,
     color: '#92400e',
     mugColor: '#7c2d12',
     fogColor: 'rgba(120,53,15,0.35)',
@@ -59,7 +61,7 @@ const BEERS = [
   {
     id: 'nitro-stout',
     name: 'Nitro Stout',
-    img: '/Nitro Stout.png',
+    img: `${BASE}/Nitro Stout.png`,
     color: '#1c1917',
     mugColor: '#0c0a09',
     fogColor: 'rgba(41,37,36,0.6)',
@@ -72,7 +74,7 @@ const BEERS = [
   {
     id: 'ipa',
     name: 'IPA',
-    img: '/IPA.png',
+    img: `${BASE}/IPA.png`,
     color: '#166534',
     mugColor: '#14532d',
     fogColor: 'rgba(22,101,52,0.2)',
@@ -85,7 +87,7 @@ const BEERS = [
   {
     id: 'mead',
     name: 'Mead',
-    img: '/Mead.png',
+    img: `${BASE}/Mead.png`,
     color: '#D97706',
     mugColor: '#b45309',
     fogColor: 'rgba(217,119,6,0.2)',
@@ -98,7 +100,7 @@ const BEERS = [
   {
     id: 'specialty',
     name: 'Specialty',
-    img: '/Specialty.png',
+    img: `${BASE}/Specialty.png`,
     color: '#701a75',
     mugColor: '#701a75',
     fogColor: 'rgba(112,26,117,0.3)',
