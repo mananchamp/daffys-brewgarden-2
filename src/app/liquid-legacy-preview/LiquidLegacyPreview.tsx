@@ -356,7 +356,7 @@ export default function LiquidLegacyPreview() {
 
       // Desktop Animation (with horizontal panning)
       mm.add("(min-width: 768px)", () => {
-        gsap.set('.master-glass-viewport', { xPercent: -22 });
+        gsap.set('.master-glass-viewport', { xPercent: 0 });
         const tl = gsap.timeline({ scrollTrigger: { trigger: containerRef.current, start: 'top top', end: `+=${(sections - 1) * 100}%`, pin: true, scrub: 1.2 } });
         
         BEERS.forEach((beer, i) => {
@@ -367,7 +367,7 @@ export default function LiquidLegacyPreview() {
           tl.to(`.bg-layer-${i-1}`, { opacity: 0, xPercent: isEven ? 10 : -10, duration: 0.7, ease: 'power1.inOut' }, start);
           tl.fromTo(`.bg-layer-${i}`, { opacity: 0, xPercent: isEven ? -10 : 10 }, { opacity: 1, xPercent: 0, duration: 0.7, ease: 'power1.inOut' }, start + 0.3);
           
-          tl.to('.master-glass-viewport', { xPercent: isEven ? -22 : 22, duration: 1, ease: 'power2.inOut' }, start);
+          tl.to('.master-glass-viewport', { xPercent: isEven ? 0 : -100, duration: 1, ease: 'power2.inOut' }, start);
           
           tl.to(`.glass-${i-1}`, { opacity: 0, scale: 0.8, y: -20, duration: 0.5, ease: 'power2.in' }, start);
           tl.fromTo(`.glass-${i}`, { opacity: 0, scale: 1.1, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'power2.out' }, start + 0.5);
@@ -491,9 +491,9 @@ export default function LiquidLegacyPreview() {
             ))}
           </div>
 
-          {/* Glass layer — on mobile: top-anchored; on desktop: centered with horizontal GSAP pan */}
-          <div className="absolute inset-0 flex items-start md:items-center justify-center z-20 pointer-events-none">
-            <div className="master-glass-viewport relative w-[70vw] md:w-[45vw] h-[45vh] md:h-[80vh] flex items-center justify-center will-change-transform mt-[8vh] md:mt-0">
+          {/* Glass layer — on mobile: top-anchored; on desktop: exactly 50vw right-aligned */}
+          <div className="absolute inset-0 flex items-start md:items-center justify-center md:justify-end z-20 pointer-events-none">
+            <div className="master-glass-viewport relative w-[60vw] md:w-[50vw] h-[38vh] md:h-full flex items-center justify-center will-change-transform mt-[10vh] md:mt-0">
               {BEERS.map((beer, i) => (
                 <div key={`glass-${beer.id}`} className={`glass-${i} absolute inset-0 flex items-center justify-center`} style={{ opacity: i === 0 ? 1 : 0 }}>
                   <div className="relative w-full h-full">
@@ -512,60 +512,32 @@ export default function LiquidLegacyPreview() {
                 <div
                   key={`content-${beer.id}`}
                   className={`content-${i} absolute inset-0 opacity-0
-                    flex flex-col items-center justify-end pb-24 px-5
-                    md:flex-row md:items-center md:justify-start md:pb-0 md:px-0
-                    ${isEven ? 'md:justify-end md:pr-[12%]' : 'md:justify-start md:pl-[12%]'}`}
+                    flex flex-col items-center justify-end pb-32 px-5
+                    md:flex-row md:items-center md:pb-0 md:px-0
+                    ${isEven ? 'md:justify-start' : 'md:justify-end'}`}
                   style={{ opacity: i === 0 ? 1 : 0 }}
                 >
-                  {isEven ? (
-                    <>
-                      <div className="hidden md:block"></div>
-                      <div className="w-full px-5 md:pr-10 lg:pr-[15%] flex flex-col items-center md:items-start text-center md:text-left pointer-events-auto z-40 relative">
-                        <span className="block text-[9px] md:text-xs font-bold tracking-[0.5em] uppercase mb-3 md:mb-6 text-[#d4af37]">{beer.notes}</span>
-                        <h2
-                          className="leading-none tracking-tight md:tracking-tighter font-black mb-4 md:mb-8 uppercase text-white w-full"
-                          style={{
-                            fontFamily: 'Playfair Display, serif',
-                            textShadow: '0 10px 30px rgba(0,0,0,0.9)',
-                            fontSize: 'clamp(2rem, 6vw, 4.5rem)',
-                          } as React.CSSProperties}
-                        >
-                          {beer.name}
-                        </h2>
-                        <div className="flex flex-wrap gap-2 md:gap-3 justify-center md:justify-start">
-                          {beer.ingredients.map((ing, idx) => (
-                            <div key={idx} className="px-3 md:px-6 py-1.5 md:py-2 rounded-full border border-[#d4af37]/20 backdrop-blur-2xl bg-[#1a0f0a]/70 shadow-[0_6px_20px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.05)] transition-all duration-500 hover:border-[#d4af37]/50 group cursor-default">
-                              <span className="text-[8px] md:text-xs font-bold tracking-[0.3em] md:tracking-[0.4em] uppercase text-[#d4af37]/90 group-hover:text-[#d4af37] transition-colors duration-300 whitespace-nowrap">{ing}</span>
-                            </div>
-                          ))}
+                  <div className={`w-full md:w-[50vw] px-5 flex flex-col items-center md:items-start text-center md:text-left pointer-events-auto z-40 relative
+                    ${isEven ? 'md:pl-[12vw] md:pr-8' : 'md:pr-[12vw] md:pl-8'}`}>
+                    <span className="block text-[9px] md:text-xs font-bold tracking-[0.5em] uppercase mb-3 md:mb-6 text-[#d4af37]">{beer.notes}</span>
+                    <h2
+                      className="leading-none tracking-tight md:tracking-tighter font-black mb-4 md:mb-8 uppercase text-white w-full"
+                      style={{
+                        fontFamily: 'Playfair Display, serif',
+                        textShadow: '0 10px 30px rgba(0,0,0,0.9)',
+                        fontSize: 'clamp(2rem, 5vw, 4.5rem)',
+                      } as React.CSSProperties}
+                    >
+                      {beer.name}
+                    </h2>
+                    <div className="flex flex-wrap gap-2 md:gap-3 justify-center md:justify-start">
+                      {beer.ingredients.map((ing, idx) => (
+                        <div key={idx} className="px-3 md:px-6 py-1.5 md:py-2 rounded-full border border-[#d4af37]/20 backdrop-blur-2xl bg-[#1a0f0a]/70 shadow-[0_6px_20px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.05)] transition-all duration-500 hover:border-[#d4af37]/50 group cursor-default">
+                          <span className="text-[8px] md:text-xs font-bold tracking-[0.3em] md:tracking-[0.4em] uppercase text-[#d4af37]/90 group-hover:text-[#d4af37] transition-colors duration-300 whitespace-nowrap">{ing}</span>
                         </div>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="w-full px-5 md:pl-10 lg:pl-[15%] flex flex-col items-center md:items-start text-center md:text-left pointer-events-auto z-40 relative">
-                        <span className="block text-[9px] md:text-xs font-bold tracking-[0.5em] uppercase mb-3 md:mb-6 text-[#d4af37]">{beer.notes}</span>
-                        <h2
-                          className="leading-none tracking-tight md:tracking-tighter font-black mb-4 md:mb-8 uppercase text-white w-full"
-                          style={{
-                            fontFamily: 'Playfair Display, serif',
-                            textShadow: '0 10px 30px rgba(0,0,0,0.9)',
-                            fontSize: 'clamp(2rem, 6vw, 4.5rem)',
-                          } as React.CSSProperties}
-                        >
-                          {beer.name}
-                        </h2>
-                        <div className="flex flex-wrap gap-2 md:gap-3 justify-center md:justify-start">
-                          {beer.ingredients.map((ing, idx) => (
-                            <div key={idx} className="px-3 md:px-6 py-1.5 md:py-2 rounded-full border border-[#d4af37]/20 backdrop-blur-2xl bg-[#1a0f0a]/70 shadow-[0_6px_20px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.05)] transition-all duration-500 hover:border-[#d4af37]/50 group cursor-default">
-                              <span className="text-[8px] md:text-xs font-bold tracking-[0.3em] md:tracking-[0.4em] uppercase text-[#d4af37]/90 group-hover:text-[#d4af37] transition-colors duration-300 whitespace-nowrap">{ing}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="hidden md:block"></div>
-                    </>
-                  )}
+                      ))}
+                    </div>
+                  </div>
                 </div>
               );
             })}
