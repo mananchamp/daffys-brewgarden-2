@@ -23,7 +23,7 @@ export default function Cocktails() {
       story: 'A signature delicacy, slow-braised to achieve a melt-in-the-mouth texture with deep, robust flavors.',
       badge: 'TANDOOR',
       color: '#8b0000',
-      image: '/mutton_rogan_premium.png'
+      image: '/mutton_rogan_premium.webp'
     },
     {
       id: 'food-mutton-seekh',
@@ -33,7 +33,7 @@ export default function Cocktails() {
       story: 'Finely minced mutton infused with aromatic herbs, skewered and roasted to a velvety finish.',
       badge: 'TANDOOR',
       color: '#8b4513',
-      image: '/food_mutton_seekh.png'
+      image: '/food_mutton_seekh.webp'
     },
     {
       id: 'food-tandoori-chicken',
@@ -43,7 +43,7 @@ export default function Cocktails() {
       story: 'Marinated in our house-special blend and roasted in the clay oven for an unforgettable smoky char.',
       badge: 'SIGNATURE',
       color: '#d2691e',
-      image: '/food_tandoori_chicken.png'
+      image: '/food_tandoori_chicken.webp'
     },
     {
       id: 'food-paneer-butter',
@@ -53,7 +53,7 @@ export default function Cocktails() {
       story: 'Cubes of fresh paneer simmered in a luscious, velvety tomato and butter emulsion.',
       badge: 'VEGETARIAN',
       color: '#ff8c00',
-      image: '/food_paneer_butter.png'
+      image: '/food_paneer_butter.webp'
     },
     {
       id: 'food-chandni-mushroom',
@@ -63,7 +63,7 @@ export default function Cocktails() {
       story: 'Delicate mushrooms generously stuffed with a rich blend of cheese and nuts, finished with a gentle char.',
       badge: 'VEGETARIAN',
       color: '#d3d3d3',
-      image: '/food_chandni_mushroom.png'
+      image: '/food_chandni_mushroom.webp'
     },
     {
       id: 'food-ajwaini-fish',
@@ -73,7 +73,7 @@ export default function Cocktails() {
       story: 'Premium fish chunks marinated in a pungent mustard oil and carom seed blend, seared perfectly.',
       badge: 'SEAFOOD',
       color: '#ff4500',
-      image: '/food_ajwaini_fish.png'
+      image: '/food_ajwaini_fish.webp'
     }
   ];
 

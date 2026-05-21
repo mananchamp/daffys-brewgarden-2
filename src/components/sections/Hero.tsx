@@ -137,14 +137,16 @@ export default function Hero() {
         style={{ y, opacity }}
       >
         <motion.div
-          className="flex items-center gap-4 mb-8"
+          className="flex flex-wrap items-center justify-center gap-2 mb-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 1 }}
         >
-          <div className="h-px w-12 bg-[rgba(201,168,76,0.5)]" />
-          <span className="label-text text-[0.6rem] text-[var(--gold)]">Est. 2024 — Indiranagar’s 100 ft. Road, Bengaluru</span>
-          <div className="h-px w-12 bg-[rgba(201,168,76,0.5)]" />
+          <div className="h-px w-8 sm:w-12 bg-[rgba(201,168,76,0.5)] flex-shrink-0" />
+          <span className="label-text text-[0.6rem] text-[var(--gold)] text-center px-1">
+            Est. 2024 — Indiranagar&apos;s 100 ft. Road, Bengaluru
+          </span>
+          <div className="h-px w-8 sm:w-12 bg-[rgba(201,168,76,0.5)] flex-shrink-0" />
         </motion.div>
 
         <motion.h1
@@ -205,19 +207,21 @@ export default function Hero() {
           </CTAButton>
         </motion.div>
 
+      </motion.div>
+
+      {/* Scroll indicator — anchored to section bottom, always visible */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2.5, duration: 1 }}
+      >
+        <span className="label-text text-[0.55rem]">Scroll to discover</span>
         <motion.div
-          className="absolute bottom-[-35vh] left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2.5, duration: 1 }}
-        >
-          <span className="label-text text-[0.55rem]">Scroll to discover</span>
-          <motion.div
-            className="w-px h-12 bg-gradient-to-b from-[var(--gold)] to-transparent"
-            animate={{ scaleY: [1, 0.4, 1] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          />
-        </motion.div>
+          className="w-px h-10 bg-gradient-to-b from-[var(--gold)] to-transparent"
+          animate={{ scaleY: [1, 0.4, 1] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        />
       </motion.div>
     </section>
   );

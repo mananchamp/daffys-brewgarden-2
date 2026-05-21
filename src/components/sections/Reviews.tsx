@@ -129,7 +129,7 @@ export default function Reviews() {
             {marqueeItems.map((review, i) => (
               <div
                 key={`${review.id}-${i}`}
-                className="w-[320px] md:w-[400px] flex-shrink-0 relative group p-8 rounded-[2rem] border border-white/10 bg-[#0a0a0a]/80 backdrop-blur-sm transition-all duration-500 hover:border-[#d4af37]/50 hover:bg-[#111] shadow-2xl"
+              className="w-[80vw] sm:w-[320px] md:w-[400px] flex-shrink-0 relative group p-6 md:p-8 rounded-[2rem] border border-white/10 bg-[#0a0a0a]/80 backdrop-blur-sm transition-all duration-500 hover:border-[#d4af37]/50 hover:bg-[#111] shadow-2xl"
               >
                 {/* Quote Icon */}
                 <div className="mb-6 text-[#d4af37] opacity-40 group-hover:opacity-100 transition-opacity duration-500">

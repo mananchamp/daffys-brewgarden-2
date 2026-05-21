@@ -18,8 +18,8 @@ const BEERS = [
   {
     id: 'hefeweizen',
     name: 'HEFEWEIZEN',
-    glass: `${BASE}/glass_hefeweizen_new.png`,
-    bgImage: `${BASE}/bg_hefeweizen_generated.png`,
+    glass: `${BASE}/glass_hefeweizen_new.webp`,
+    bgImage: `${BASE}/bg_hefeweizen_generated.webp`,
     tint: '#FDE047',
     notes: 'Banana & Citrus Zest',
     ingredients: ['Wheat Stalks', 'Banana Zest', 'Citrus Peel'],
@@ -28,8 +28,8 @@ const BEERS = [
   {
     id: 'wit-bier',
     name: 'WIT BIER',
-    glass: `${BASE}/glass_wit_bier_nobg.png`,
-    bgImage: `${BASE}/bg_wit_bier.png`,
+    glass: `${BASE}/glass_wit_bier_nobg.webp`,
+    bgImage: `${BASE}/bg_wit_bier.webp`,
     tint: '#FDBA74',
     notes: 'Orange Peel & Coriander',
     ingredients: ['Orange Peel', 'Crushed Coriander', 'Creamy Oats'],
@@ -37,8 +37,8 @@ const BEERS = [
   {
     id: 'lager',
     name: 'LAGER',
-    glass: `${BASE}/glass_lager_new.png`,
-    bgImage: `${BASE}/bg_lager_generated.png`,
+    glass: `${BASE}/glass_lager_new.webp`,
+    bgImage: `${BASE}/bg_lager_generated.webp`,
     tint: '#d4af37',
     notes: 'Clean Corn, Biscuit Malt, & Floral Hops',
     ingredients: ['Yellow Flowers & Hops', 'Biscuit Malt', 'Clean Corn'],
@@ -47,8 +47,8 @@ const BEERS = [
   {
     id: 'whisky-ale',
     name: 'WHISKY ALE',
-    glass: `${BASE}/glass_whisky_ale_v2.png`,
-    bgImage: `${BASE}/bg_whisky_ale_generated.png`,
+    glass: `${BASE}/glass_whisky_ale_v2.webp`,
+    bgImage: `${BASE}/bg_whisky_ale_generated.webp`,
     tint: '#78350F',
     notes: 'Charred Oak & Campfire Smoke',
     ingredients: ['Charred Oak', 'Glowing Embers', 'Smoke Wisps'],
@@ -57,8 +57,8 @@ const BEERS = [
   {
     id: 'nitro-stout',
     name: 'NITRO STOUT',
-    glass: `${BASE}/glass_nitro_stout_nobg.png`,
-    bgImage: `${BASE}/bg_nitro_stout_generated.png`,
+    glass: `${BASE}/glass_nitro_stout_nobg.webp`,
+    bgImage: `${BASE}/bg_nitro_stout_generated.webp`,
     tint: '#292524',
     notes: 'Roasted Coffee & Cocoa',
     ingredients: ['Coffee Beans', 'Raw Cocoa', 'Nitro Head'],
@@ -67,8 +67,8 @@ const BEERS = [
   {
     id: 'ipa',
     name: 'IPA',
-    glass: `${BASE}/glass_ipa_nobg.png`,
-    bgImage: `${BASE}/bg_ipa.png`,
+    glass: `${BASE}/glass_ipa_nobg.webp`,
+    bgImage: `${BASE}/bg_ipa.webp`,
     tint: '#166534',
     notes: 'Pine & Grapefruit Zest',
     ingredients: ['Pine Needles', 'Ruby Grapefruit', 'Resin Drops'],
@@ -76,8 +76,8 @@ const BEERS = [
   {
     id: 'mead',
     name: 'MEAD',
-    glass: `${BASE}/glass_mead_nobg.png`,
-    bgImage: `${BASE}/bg_mead_generated.png`,
+    glass: `${BASE}/glass_mead_nobg.webp`,
+    bgImage: `${BASE}/bg_mead_generated.webp`,
     tint: '#D97706',
     notes: 'Local Honey & Wild Herbs',
     ingredients: ['Local Honey', 'Wildflowers', 'Green Herbs'],
@@ -86,8 +86,8 @@ const BEERS = [
   {
     id: 'specialty',
     name: 'SPECIALTY',
-    glass: `${BASE}/glass_specialty_nobg.png`,
-    bgImage: `${BASE}/bg_specialty_generated.png`,
+    glass: `${BASE}/glass_specialty_nobg.webp`,
+    bgImage: `${BASE}/bg_specialty_generated.webp`,
     tint: '#BE185D',
     notes: 'Rotating / Fruity & Spiced',
     ingredients: ['Mixed Berries', 'Exotic Spices', 'Star Anise'],
@@ -391,9 +391,8 @@ export default function LiquidLegacyPreview() {
         </div>
       )}
 
-      {/* HERO — full viewport with pinning */}
-      {isLoaded && (
-        <div ref={containerRef} className="relative h-screen w-full overflow-hidden">
+      {/* HERO — full viewport with pinning (always rendered so images preload behind loading screen) */}
+        <div ref={containerRef} className="relative h-screen w-full overflow-hidden" style={{ visibility: isLoaded ? 'visible' : 'hidden' }}>
           
           <div className="absolute inset-0 z-0 bg-[#050505] w-full h-full">
             {BEERS.map((beer, i) => (
@@ -404,7 +403,7 @@ export default function LiquidLegacyPreview() {
                   src={beer.bgImage}
                   alt=""
                   fill
-                  priority={i < 4}
+                  priority={i === 0}
                   className="object-cover transition-transform duration-1000 scale-105"
                   style={{
                     filter: ['premium-lager', 'premium-whisky', 'nitro-stout', 'premium-specialty', 'premium-mead', 'premium-hefeweizen'].includes(beer.composition!)
@@ -548,10 +547,8 @@ export default function LiquidLegacyPreview() {
             <div id="scroll-progress" className="w-full bg-[#d4af37] shadow-[0_0_15px_rgba(212,175,55,0.5)]" style={{ height: '0%' }} />
           </div>
         </div>
-      )}
 
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap');
         body { background: #050505; margin: 0; overflow-x: hidden; }
         .font-serif { font-family: 'Playfair Display', serif; }
         canvas { display: block; }

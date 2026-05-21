@@ -7,7 +7,7 @@
     "story": "Inspired by night-blooming flowers that reveal their secrets only when the world sleeps. This cocktail awakens as it breathes.",
     "badge": "Signature",
     "color": "#1a4a30",
-    "image": "/cocktail_midnight_bloom.png"
+    "image": "/cocktail_midnight_bloom.webp"
   },
   {
     "id": "golden-veil",
@@ -17,7 +17,7 @@
     "story": "A drink for the discerning. The saffron is hand-harvested from La Mancha; the smoke, from a single applewood log.",
     "badge": "Reserve",
     "color": "#8a6f2e",
-    "image": "/cocktail_golden_veil.png"
+    "image": "/cocktail_golden_veil.webp"
   },
   {
     "id": "jade-speakeasy",
@@ -27,7 +27,7 @@
     "story": "Conceived in the lab — a marriage of eastern ceremony and western rebellion. Enter through the refrigerator door.",
     "badge": "Lab Series",
     "color": "#0d2b1e",
-    "image": "/cocktail_jade_speakeasy.png"
+    "image": "/cocktail_jade_speakeasy.webp"
   },
   {
     "id": "crimson-reverie",
@@ -37,7 +37,7 @@
     "story": "The colour of sunset over the Mediterranean, captured and bottled. Each glass is dusted with 23-carat gold before service.",
     "badge": "Seasonal",
     "color": "#6b1a1a",
-    "image": "/cocktail_crimson_reverie.png"
+    "image": "/cocktail_crimson_reverie.webp"
   },
   {
     "id": "obsidian-drift",
@@ -47,7 +47,7 @@
     "story": "A slow journey through midnight. The black sesame is stone-ground in-house; the tonka, aged in oak for six months.",
     "badge": "Bartender's Choice",
     "color": "#0a0a0a",
-    "image": "/cocktail_obsidian_drift.png"
+    "image": "/cocktail_obsidian_drift.webp"
   },
   {
     "id": "marbled-siren",
@@ -57,6 +57,6 @@
     "story": "An ode to our founder's roots. The marble bar on which this is served is the same Carrara marble that built cathedrals.",
     "badge": "Heritage",
     "color": "#2a2520",
-    "image": "/cocktail_marbled_siren.png"
+    "image": "/cocktail_marbled_siren.webp"
   }
 ]

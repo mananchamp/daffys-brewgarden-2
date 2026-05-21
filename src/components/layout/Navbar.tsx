@@ -125,7 +125,7 @@ export default function Navbar() {
           <motion.a
             key={link.href}
             href={link.href}
-            className="font-display text-4xl text-[var(--text-primary)] hover:text-[var(--gold)] transition-colors cursor-none"
+            className="font-display text-4xl text-[var(--text-primary)] hover:text-[var(--gold)] transition-colors cursor-none py-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: menuOpen ? 1 : 0, y: menuOpen ? 0 : 20 }}
             transition={{ delay: menuOpen ? i * 0.08 + 0.2 : 0 }}

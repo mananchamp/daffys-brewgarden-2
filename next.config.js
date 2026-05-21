@@ -7,7 +7,8 @@ const nextConfig = {
   basePath: isGithubActions ? repoBasePath : '',
   assetPrefix: isGithubActions ? repoBasePath : '',
   images: {
-    unoptimized: true,
+    unoptimized: isGithubActions ? true : false,
+    formats: ['image/webp'],
   },
   env: {
     NEXT_PUBLIC_BASE_PATH: isGithubActions ? repoBasePath : '',

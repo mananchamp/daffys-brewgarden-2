@@ -37,7 +37,7 @@ export default function Reservation() {
   return (
     <section
       id="reservation"
-      className="relative py-32 md:py-56 px-6 md:px-12 overflow-hidden min-h-screen flex items-center"
+      className="relative py-20 md:py-56 px-6 md:px-12 overflow-hidden min-h-screen flex items-center"
       style={{ background: 'radial-gradient(ellipse at 50% 40%, #0d0a05 0%, #050505 60%)' }}
     >
       {/* Soft spotlight */}

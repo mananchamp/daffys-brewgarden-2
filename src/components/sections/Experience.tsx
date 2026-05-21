@@ -103,25 +103,27 @@ export default function Experience() {
 
         {/* ── Chapter Navigation ── */}
         <AnimatedSection delay={100}>
-          <div className="flex flex-wrap gap-0 mb-16 border-b border-[rgba(201,168,76,0.12)]">
-            {chapters.map((ch, i) => (
-              <button
-                key={ch.id}
-                id={`chapter-${ch.id}-btn`}
-                onClick={() => setActive(i)}
-                className={`label-text text-[0.65rem] px-6 py-4 transition-all duration-300 cursor-none relative
-                  ${active === i ? 'text-[var(--gold)]' : 'text-[var(--text-faint)] hover:text-[var(--text-muted)]'}`}
-              >
-                {ch.label}
-                {active === i && (
-                  <motion.div
-                    layoutId="chapter-underline"
-                    className="absolute bottom-0 left-0 right-0 h-px bg-[var(--gold)]"
-                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                  />
-                )}
-              </button>
-            ))}
+          <div className="mb-16 border-b border-[rgba(201,168,76,0.12)] overflow-x-auto scrollbar-none -mx-6 px-6">
+            <div className="flex gap-0 min-w-max md:min-w-0 md:flex-wrap">
+              {chapters.map((ch, i) => (
+                <button
+                  key={ch.id}
+                  id={`chapter-${ch.id}-btn`}
+                  onClick={() => setActive(i)}
+                  className={`label-text text-[0.65rem] px-5 py-4 transition-all duration-300 cursor-none relative whitespace-nowrap flex-shrink-0
+                    ${active === i ? 'text-[var(--gold)]' : 'text-[var(--text-faint)] hover:text-[var(--text-muted)]'}`}
+                >
+                  {ch.label}
+                  {active === i && (
+                    <motion.div
+                      layoutId="chapter-underline"
+                      className="absolute bottom-0 left-0 right-0 h-px bg-[var(--gold)]"
+                      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    />
+                  )}
+                </button>
+              ))}
+            </div>
           </div>
         </AnimatedSection>
 
@@ -133,7 +135,7 @@ export default function Experience() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24"
+            className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-24"
           >
             {/* Left: Story */}
             <div>

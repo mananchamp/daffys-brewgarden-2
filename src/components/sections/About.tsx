@@ -65,7 +65,7 @@ export default function About() {
       <div className="max-w-6xl mx-auto">
         {/* ── Label ── */}
         <AnimatedSection>
-          <div className="flex items-center gap-4 mb-20">
+          <div className="flex items-center gap-4 mb-12 md:mb-20">
             <div className="h-px w-8 bg-[var(--gold)] opacity-50" />
             <span className="label-text text-[0.6rem] text-[var(--gold)]">Our Story</span>
           </div>
@@ -108,7 +108,7 @@ export default function About() {
               </p>
 
               {/* Accent stat row */}
-              <div className="flex gap-10 pt-4">
+              <div className="flex flex-wrap gap-8 pt-4">
                 {[
                   { n: '#1', label: 'World\'s Best Bar' },
                   { n: '48+', label: 'Original Cocktails' },

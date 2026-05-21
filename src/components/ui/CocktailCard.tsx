@@ -106,9 +106,16 @@ export default function CocktailCard({ cocktail, index }: CocktailCardProps) {
             <div className="flex items-center gap-2">
               <div className="h-px flex-1 bg-[rgba(201,168,76,0.25)]" />
               <span
+                className="hidden md:inline"
                 style={{ fontSize: '0.55rem', letterSpacing: '0.22em', fontFamily: 'var(--font-inter)', textTransform: 'uppercase', color: 'rgba(201,168,76,0.6)' }}
               >
                 hover to reveal
+              </span>
+              <span
+                className="md:hidden"
+                style={{ fontSize: '0.55rem', letterSpacing: '0.22em', fontFamily: 'var(--font-inter)', textTransform: 'uppercase', color: 'rgba(201,168,76,0.6)' }}
+              >
+                tap to reveal
               </span>
               <div className="h-px flex-1 bg-[rgba(201,168,76,0.25)]" />
             </div>
